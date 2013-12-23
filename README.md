@@ -1,0 +1,2 @@
+# my rails starter kit
+
