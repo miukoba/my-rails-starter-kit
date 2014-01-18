@@ -17,10 +17,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 ```
 
-- bundle install --path vendor/bundle
+- bundle install
 
-- MySQL, SQLite, etc
-  - bundle exec rails new .
+- MySQL
+  - bundle exec rails new . -d mysql
 
 - No Database, MongoDB, etc
   - bundle exec rails new . --skip-active-record
@@ -31,16 +31,18 @@ gem 'rails', '4.0.0'
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-gem 'rails', '4.0.0'
 ruby '2.0.0'
+
+gem 'rails', '4.0.0'
+
+gem 'mysql2'
 
 - - - - - - - -
 
-# Rails Assets
-# https://rails-assets.org/
-gem 'rails-assets-bootstrap'
-gem 'rails-assets-bootstrap-datepicker'
-gem 'rails-assets-select2'
+# bootstrap
+# https://github.com/anjlab/bootstrap-rails
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+    :github => 'anjlab/bootstrap-rails'
 
 # pagination
 # https://github.com/amatsuda/kaminari
@@ -52,7 +54,7 @@ gem 'impressionist'
 
 # Settings.hoge
 # https://github.com/railsjedi/rails_config
-rails_config
+gem 'rails_config'
 
 # tagging
 # https://github.com/mbleigh/acts-as-taggable-on
@@ -92,9 +94,36 @@ group :test do
   gem 'rspec-rails'
 end
 
-group :production
+group :production do
   # for heroku
   gem 'rails_12factor'
 end
+```
 
 ```
+vi config/database.yml
+```
+
+```
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: dbname_development
+  pool: 5
+  username: root
+  password: root
+  host: localhost
+```
+
+```
+rake db:setup
+bundle exec rails s
+git init
+git add -a
+git commit
+```
+
+http://localhost:3000/
+
+
